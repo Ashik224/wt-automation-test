@@ -21,7 +21,7 @@ public class Main {
     public static WebDriver setBrowserConfig(String browser) {
         WebDriver driver = null;
         if(browser.equals("CHROME")) {
-            System.setProperty("webdriver.chrome.driver", "C:\\Users\\BS0493\\OneDrive\\Documents\\SelSetup\\chromedriver.exe");
+            System.setProperty("webdriver.chrome.driver", "C:\\Users\\BS0493\\OneDrive\\Documents\\TestProject\\wt-automation-test\\drivers\\chromedriver.exe");
             driver = new ChromeDriver();
         }
         return driver;
