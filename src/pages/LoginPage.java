@@ -32,6 +32,7 @@ public class LoginPage {
         String userEmail = "ehasanul.haque@wundermanthompson.com";
         helper.waitForVisibility(email);
         email.sendKeys(userEmail);
+        driver.manage().window().maximize();
 //        Thread.sleep(7000);
 //        driver.quit();
     }
