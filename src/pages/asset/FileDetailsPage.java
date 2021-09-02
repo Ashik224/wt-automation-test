@@ -1,4 +1,4 @@
-package pages;
+package pages.asset;
 
 import helpers.TestHelper;
 import org.junit.Assert;
@@ -15,20 +15,19 @@ public class FileDetailsPage {
 
     @FindBy(css = "tbody tr:nth-child(1) td:nth-child(2)")
         WebElement fileDetails;
-
-    By textBoxTitleBy = By.cssSelector(".control-group:nth-child(3) input");
     @FindBy(css = ".control-group:nth-child(3) input")
         WebElement textBoxTitle;
-
     @FindBy(linkText = "Save")
         WebElement buttonSave;
-
-    By popUpMsgBy = By.cssSelector(".gritter-without-image .alert-info");
     @FindBy(css = ".gritter-without-image .alert-info")
         WebElement popUpMsg;
-
     @FindBy(css = ".list-item-actionpanel ._s_Close.close")
         WebElement buttonClose;
+
+    By popUpMsgBy = By.cssSelector(".gritter-without-image .alert-info");
+    By textBoxTitleBy = By.cssSelector(".control-group:nth-child(3) input");
+
+    String updatedTitleString = "QA Automation Engineer";
 
     public FileDetailsPage(WebDriver driver, TestHelper helper) {
         this.driver = driver;
@@ -37,15 +36,14 @@ public class FileDetailsPage {
     }
 
     public void clickFileDetails() {
-//        JavascriptExecutor js = (JavascriptExecutor) driver;
-//        js.executeScript("arguments[0].click()", fileDetails);
         fileDetails.click();
     }
 
-    public void updateTitle() {
+    public void updateTitle() throws InterruptedException {
+        helper.waitForSomeTime(3500);
         helper.waitForPresence(textBoxTitleBy);
         textBoxTitle.clear();
-        textBoxTitle.sendKeys("QA Automation Engineer");
+        textBoxTitle.sendKeys(updatedTitleString);
     }
 
     public void clickSave() {
@@ -59,6 +57,9 @@ public class FileDetailsPage {
     public void clickClose() {
         helper.waitForPopupToGoAway(popUpMsgBy);
         buttonClose.click();
+    }
 
+    public String getTitle() {
+        return updatedTitleString;
     }
 }

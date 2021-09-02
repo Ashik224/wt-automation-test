@@ -8,8 +8,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class TestHelper {
     WebDriverWait wait;
+    WebDriver driver;
     public TestHelper(WebDriver driver) {
         wait = new WebDriverWait(driver, 30);
+        this.driver = driver;
     }
     public WebDriverWait getWebDriverWait() {
         return wait;
@@ -29,6 +31,10 @@ public class TestHelper {
 
     public void waitForSomeTime(long miliSecs) throws InterruptedException {
         Thread.sleep(miliSecs);
+    }
+
+    public void maximizeWindow() {
+        driver.manage().window().maximize();
     }
 
 }

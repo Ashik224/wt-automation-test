@@ -16,7 +16,6 @@ public class DashboardPage {
     By damWait = By.cssSelector(".container-fluid ul[id='appList'] li.dropdown:nth-last-child(4)");
     @FindBy(css = ".container-fluid ul[id='appList'] li.dropdown:nth-last-child(4)")
         WebElement dam;
-
     @FindBy(xpath = "//a[text() = 'Assets']")
         WebElement damOptionAsset;
 

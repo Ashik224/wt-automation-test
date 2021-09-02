@@ -12,13 +12,10 @@ public class LoginPage {
 
     @FindBy(name = "userName")
         WebElement email;
-
     @FindBy(css=".sign-in-box-btn._s_LoginOption")
         WebElement submitEmail;
-
     @FindBy(name = "password")
         WebElement password;
-
     @FindBy(css = ".sign-in-box-btn._s_Submit")
         WebElement login;
 
@@ -32,9 +29,7 @@ public class LoginPage {
         String userEmail = "ehasanul.haque@wundermanthompson.com";
         helper.waitForVisibility(email);
         email.sendKeys(userEmail);
-        driver.manage().window().maximize();
-//        Thread.sleep(7000);
-//        driver.quit();
+        helper.maximizeWindow();
     }
 
     public void buttonSubmitEmail() {

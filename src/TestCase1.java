@@ -1,13 +1,9 @@
 import helpers.TestHelper;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import pages.AssetPage;
-import pages.DashboardPage;
-import pages.FileDetailsPage;
-import pages.LoginPage;
-
-import java.io.IOException;
+import pages.*;
+import pages.asset.AssetPage;
+import pages.asset.FileDetailsPage;
+import pages.asset.FileUploadPage;
 
 public class TestCase1 {
     WebDriver driver;
@@ -17,37 +13,44 @@ public class TestCase1 {
     DashboardPage dashboardPage;
     AssetPage assetPage;
     FileDetailsPage fileDetailsPage;
+    FileUploadPage fileUploadPage;
 
-    public void init() {
-//        System.setProperty("webdriver.gecko.driver", "C:\\Users\\BS0493\\OneDrive\\Documents\\SelSetup\\geckodriver.exe");
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\BS0493\\OneDrive\\Documents\\SelSetup\\chromedriver.exe");
-        driver = new ChromeDriver();
-        helper = new TestHelper(driver);
-        driver.get("https://qatest.marcombox.com/");
+    public TestCase1(WebDriver driver) {
+        this.driver = driver;
     }
 
-    public void run() throws InterruptedException, IOException {
+    public void init() {
+        helper = new TestHelper(driver);
+    }
+
+    public void run() throws Exception {
         loginPage = new LoginPage(driver, helper);
         loginPage.textBoxEmail();
         loginPage.buttonSubmitEmail();
         loginPage.textBoxPassword();
         loginPage.buttonLogin();
-//
+
         dashboardPage = new DashboardPage(driver, helper);
         dashboardPage.dropDownDam();
         dashboardPage.dropDownMenuAsset();
-//
+
         assetPage = new AssetPage(driver, helper);
-        assetPage.buttonUpload();
-        assetPage.buttonBrowseUpload();
-        assetPage.setTitle();
-        assetPage.clickChooseType();
-        assetPage.selectOptionImage();
-        assetPage.submitUploadButton();
-        assetPage.waitForProcessing();
-        assetPage.checkTitle();
-        assetPage.checkFileName();
-        assetPage.checkFileType();
+        assetPage.clickUpload();
+        assetPage.clickBrowse();
+
+        fileUploadPage = new FileUploadPage(driver, helper);
+        fileUploadPage.setTitleField();
+        fileUploadPage.clickChooseType();
+        fileUploadPage.selectOptionImage();
+        fileUploadPage.clickSaveUpload();
+        fileUploadPage.waitForProcessing();
+
+        String fileTitle = fileUploadPage.getTitle();
+        assetPage.checkFileTitle(fileTitle);
+        String fileName = assetPage.getFileName();
+        assetPage.checkFileName(fileName);
+        String fileType = fileUploadPage.getType();
+        assetPage.checkFileType(fileType);
 
         fileDetailsPage = new FileDetailsPage(driver, helper);
         fileDetailsPage.clickFileDetails();
@@ -55,8 +58,11 @@ public class TestCase1 {
         fileDetailsPage.clickSave();
         fileDetailsPage.clickClose();
 
-        assetPage.checkTitle();
+        String updatedFileTitle = fileDetailsPage.getTitle();
+        assetPage.checkFileTitle(updatedFileTitle);
         assetPage.clickSelectFile();
         assetPage.clickShare();
+
+        helper.waitForSomeTime(7000);
     }
 }
