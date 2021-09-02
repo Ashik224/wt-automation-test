@@ -20,5 +20,15 @@ public class TestHelper {
     public void waitForPresence(By by) {
         getWebDriverWait().until(ExpectedConditions.visibilityOfElementLocated(by));
     }
+    public void waitForInvisibility(By by) {
+        getWebDriverWait().until(ExpectedConditions.invisibilityOfElementLocated(by));
+    }
+    public void waitForPopupToGoAway(By by) {
+        waitForInvisibility(by);
+    }
+
+    public void waitForSomeTime(long miliSecs) throws InterruptedException {
+        Thread.sleep(miliSecs);
+    }
 
 }
